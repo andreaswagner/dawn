@@ -9,6 +9,7 @@
 
 {%- if section.settings.menu_type_desktop == 'mega' -%}
   <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+  
 {%- endif -%}
 
 
@@ -127,17 +128,19 @@
       assign localization_forms = true
     endif
   -%}
+  
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+    
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
       endif
 
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-        render 'header-search', input_id: 'Search-In-Modal-1'
+      
       endif
     -%}
-
+    
     {%- if section.settings.logo_position != 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
@@ -232,7 +235,10 @@
           </localization-form>
         {%- endif -%}
       </div>
-      {% render 'header-search', input_id: 'Search-In-Modal' %}
+      
+      {% comment %}
+        {% render 'header-search', input_id: 'Search-In-Modal' %}
+      {% endcomment %}
 
       {%- if shop.customer_accounts_enabled -%}
         <a
@@ -269,7 +275,50 @@
             {% render block %}
         {%- endcase -%}
       {%- endfor -%}
+  
+      <!-- Social Icons -->
+      <div class="header-social-icons">
+        {% if settings.social_instagram_link != blank %}
+          <a href="{{ settings.social_instagram_link }}" target="_blank" class="header-social-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+        {% endif %}
+        
+        {% if settings.social_tiktok_link != blank %}
+          <a href="{{ settings.social_tiktok_link }}" target="_blank" class="header-social-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+            </svg>
+          </a>
+        {% endif %}
+        
+        {% if settings.social_youtube_link != blank %}
+          <a href="{{ settings.social_youtube_link }}" target="_blank" class="header-social-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+        {% endif %}
+        
+        <!-- Debug: LinkedIn URL: {{ settings.social_linkedin_link }} -->
+        {% if settings.social_linkedin_link != blank %}
+          <a href="{{ settings.social_linkedin_link }}" target="_blank" class="header-social-icon">
+            <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.45898 21.8755H0.923828V7.271H5.45898V21.8755ZM3.18896 5.27881C1.73877 5.27881 0.5625 4.07764 0.5625 2.62744C0.5625 1.93086 0.839216 1.26281 1.33177 0.77025C1.82433 0.277693 2.49238 0.000976562 3.18896 0.000976562C3.88555 0.000976562 4.5536 0.277693 5.04616 0.77025C5.53871 1.26281 5.81543 1.93086 5.81543 2.62744C5.81543 4.07764 4.63867 5.27881 3.18896 5.27881ZM22.4326 21.8755H17.9072V14.7661C17.9072 13.0718 17.873 10.8989 15.5493 10.8989C13.1914 10.8989 12.8301 12.7397 12.8301 14.644V21.8755H8.29981V7.271H12.6494V9.26318H12.7129C13.3184 8.11572 14.7974 6.90479 17.0039 6.90479C21.5938 6.90479 22.4375 9.92725 22.4375 13.853V21.8755H22.4326Z" fill="white"/>
+</svg>
 
+          </a>
+        {% endif %}
+           <a href="https://www.agboverse.com/subscribe" class="header__subscribe-link">SIGN&nbsp;UP</a>
+      </div>
+         <!-- Subscribe button -->
+       
+     
+   
+
+     
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
           {% if cart == empty %}
             <span class="svg-wrapper">{{'icon-cart-empty.svg' | inline_asset_content }}</span>
@@ -423,7 +472,8 @@
       {{ settings.social_tumblr_link | json }},
       {{ settings.social_snapchat_link | json }},
       {{ settings.social_youtube_link | json }},
-      {{ settings.social_vimeo_link | json }}
+      {{ settings.social_vimeo_link | json }},
+      {{ settings.social_linkedin_link | json }}
     ],
     "url": {{ request.origin | append: page.url | json }}
   }
@@ -457,6 +507,10 @@
       "id": "logo_position",
       "options": [
         {
+          "value": "middle-left",
+          "label": "t:sections.header.settings.logo_position.options__1.label"
+        },
+        {
           "value": "top-left",
           "label": "t:sections.header.settings.logo_position.options__2.label"
         },
@@ -465,17 +519,13 @@
           "label": "t:sections.header.settings.logo_position.options__3.label"
         },
         {
-          "value": "middle-left",
-          "label": "t:sections.header.settings.logo_position.options__1.label"
-        },
-        {
           "value": "middle-center",
           "label": "t:sections.header.settings.logo_position.options__4.label"
         }
       ],
       "default": "middle-left",
       "label": "t:sections.header.settings.logo_position.label",
-      "info": "t:sections.header.settings.logo_help.content"
+      "info": "Desktop only"
     },
     {
       "type": "select",
