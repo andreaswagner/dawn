@@ -32,7 +32,7 @@ p, span, div, li, a, input, textarea, button, label {
 }
 /* Style the header wrapper to match AGBO design */
 .header-wrapper {
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   z-index: 100;
   background-color: var(--black);
